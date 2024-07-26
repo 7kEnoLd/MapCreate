@@ -12,8 +12,8 @@ colors = ['blue', 'red', 'green', 'purple', 'orange', 'pink', 'yellow', 'brown',
 color_index = 0
 
 # 创建地图对象
-mymap = folium.Map(location=[df['Latitude'].mean(), df['Longitude'].mean()], zoom_start=12, tiles='http://thematic.geoq.cn/arcgis/rest/services/StreetThematicMaps/Gray_OnlySymbol/MapServer/tile/{z}/{y}/{x}',
-               attr='街道网图',)
+mymap = folium.Map(location=[df['Latitude'].mean(), df['Longitude'].mean()], zoom_start=12, tiles='https://wprd01.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scl=1&style=8&ltype=11',
+               attr='高德-街道路网图',)
 
 # 遍历每个线路的数据
 for name, group in grouped_data:
@@ -29,8 +29,8 @@ for name, group in grouped_data:
 
     # 在地图上绘制站点
     for index, row in group.iterrows():
-        # 添加圆圈
-        folium.CircleMarker(
+        # 添加圆圈, Circle不变半径，CircleMaker变半径
+        folium.Circle(
             location=[row['Latitude'], row['Longitude']],
             radius=4,  # 圆圈半径，单位为米
             color='black',  # 圆圈颜色
